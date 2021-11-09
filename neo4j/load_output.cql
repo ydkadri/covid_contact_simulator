@@ -12,15 +12,29 @@ WITH p, l, row
 CREATE (p)-[:REGISTERS]->(v:Visit {time: toInteger(row.step)})-[:AT]->(l)
 ;
 
-// Label the special case of a detection event
-MATCH (l:Location {location_id: -1})
-SET l.name = 'DETECTED'
+// Set the sick/healthy status
+:auto USING PERIODIC COMMIT 1000
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/ydkadri/covid_contact_simulator/main/output.csv' AS row
+
+MATCH (p:Person {person_id: toInteger(row.person)})
+SET p.status = row.status
 ;
 
 // Create indices for query optimisation
-CREATE INDEX ON :Person(person_id);
-CREATE INDEX ON :Location(location_id);
-CREATE INDEX ON :Visit(time);
+CREATE INDEX idx_person_personid IF NOT EXISTS
+    FOR (p:Person)
+    ON (p.person_id)
+;
+
+CREATE INDEX idx_location_locationid IF NOT EXISTS
+    FOR (l:Location)
+    ON (l.location_id)
+;
+
+CREATE INDEX idx_visit_time IF NOT EXISTS
+    FOR (v:Visit)
+    ON (v.time)
+;
 
 // Create meta-visit relationship
 MATCH (p:Person)--(v:Visit)--(l:Location)
