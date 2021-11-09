@@ -13,11 +13,11 @@ def simulate():
     places = [Location(j) for j in range(PLACES)]
     infected = {k: [] for k in range(ASYMPTOMATIC_TIME + 1)}
 
-    print("step,location,person,infected")
+    print("step,location,person,status")
 
     for step in range(TIMESTEPS):
         for person in infected[0]:
-            print(f"{step},-1,{person.person_id},True")
+            print(f"{step},-1,{person.person_id},Sick")
             people.remove(person)
             if len(people) == 0:
                 print("finished")

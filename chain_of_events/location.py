@@ -25,7 +25,9 @@ class Location:
         for occupant in self.occupants:
             if self.infected_occupants:
                 occupant.contact_infect(infected)
-            print(f"{step},{self.location_id},{occupant.person_id},{occupant.infected}")
+            print(
+                f"{step},{self.location_id},{occupant.person_id},{occupant.infected_status}"
+            )
 
     def end_step(self):
         """Clean up the location after a step"""

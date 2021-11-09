@@ -24,7 +24,7 @@ class Person:
 
     def __init__(self, person_id):
         self.__person_id = person_id
-        self.infected = False
+        self.infected_status = "Healthy"
 
     @property
     def person_id(self):
@@ -36,14 +36,14 @@ class Person:
         if random.random() < P_VISIT:
             location = random.choice(locations)
             location.occupants.append(self)
-            if self.infected:
+            if self.infected_status == "Sick":
                 location.infected_occupants = True
 
     def _infect(self, infected: dict):
-        if not self.infected:
+        if self.infected_status == "Healthy":
             position = ASYMPTOMATIC_TIME - random.randint(0, ASYMPTOMATIC_VARIANCE)
             infected[position].append(self)
-        self.infected = True
+        self.infected_status = "Sick"
 
     def random_infect(self, infected: list):
         """Possibly become infected through random chance"""
