@@ -17,7 +17,7 @@ def simulate():
 
     for step in range(TIMESTEPS):
         for person in infected[0]:
-            print(f"{step},DETECTED,{person.person_id},")
+            print(f"{step},-1,{person.person_id},True")
             people.remove(person)
             if len(people) == 0:
                 print("finished")
