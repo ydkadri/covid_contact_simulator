@@ -17,10 +17,8 @@ def simulate():
 
     for step in range(TIMESTEPS):
         for person in infected[0]:
-            print(f"{step},-1,{person.person_id},Sick")
             people.remove(person)
             if len(people) == 0:
-                print("finished")
                 break
 
         for person in people:
