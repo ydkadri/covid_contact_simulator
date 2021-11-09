@@ -24,7 +24,7 @@ being removed from the population
 # Upper bound for likely number of events
 # Note that as paths terminate with an identified infection
 # this is unlikely to be realised
-_TARGET_EVENTS = 50000
+_TARGET_EVENTS = 45000
 
 # Initial conditions for the simulation
 PLACES = 100
@@ -35,7 +35,7 @@ TIMESTEPS = int(_TARGET_EVENTS / (PEOPLE * P_VISIT))
 
 # Probabilities of random and contact based infection
 P_RANDOM_INFECTION = 0.0001
-P_CONTACT_INFECTION = 0.001
+P_CONTACT_INFECTION = 0.25
 
 # Time between being infected and identifying an infection
 ASYMPTOMATIC_TIME = 10
