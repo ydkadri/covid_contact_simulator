@@ -1,13 +1,11 @@
 
-neo4j/mOC2wgUUBxzjhkYAKlntJjXabeP2EvJU7_yCUKZyjnk
-
 MATCH (n) DETACH DELETE n;
 
 // ":auto" required for periodic commit
 :auto USING PERIODIC COMMIT 1000
 LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/ydkadri/covid_contact_simulator/main/output.csv' AS row
 
-MERGE (p:Person {person_id: toInteger(row.person)})
+MERGE (p:Person {person_id: toInteger(row.person), status: "Healthy"})
 MERGE (l:Location {location_id: toInteger(row.location)})
 
 WITH p, l, row
@@ -57,5 +55,11 @@ CREATE INDEX idx_visit_time IF NOT EXISTS
 // Create meta-visit relationship
 MATCH (p:Person)--(v:Visit)--(l:Location)
 CREATE (p)-[:VISITS {time: v.time}]->(l)
+;
+
+// Give people names
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/ydkadri/covid_contact_simulator/main/names.csv' AS row
+MATCH (p:Person {person_id: toInteger(row.person_id)})
+SET p.name = row.name
 ;
 
