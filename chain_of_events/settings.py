@@ -24,7 +24,7 @@ being removed from the population
 # Upper bound for likely number of events
 # Note that as paths terminate with an identified infection
 # this is unlikely to be realised
-_TARGET_EVENTS = 45000
+_TARGET_EVENTS = 25000
 
 # Initial conditions for the simulation
 PLACES = 100
